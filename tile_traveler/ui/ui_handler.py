@@ -1,4 +1,4 @@
-from ..logic.tiletravelerlogic import PlayerLogic
+from ..logic.player_logic import PlayerLogic
 
 from ..models.user_moves import UserMove
 from ..constants import YES_ANS, NO_ANS

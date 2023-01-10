@@ -1,16 +1,16 @@
-from .logic.tiletravelerlogic import PlayerLogic
+from .logic.player_logic import PlayerLogic
 from .ui.ui_handler import UiHandler, clear_terminal
 from .models.user_moves import UserMove
-from .logic.board import Board
+from .logic.board import BoardLogic
 from .constants import YES_ANS, NO_ANS, QUIT_COMMAND, INPUT_FIELD
 
 INVALID_CHOICE = "Not valid input try again."
 INVALID_DIRECTION = "Not valid direction try again."
 
 
-def setup_default_board() -> Board:
+def setup_default_board() -> BoardLogic:
     """Sets up default board size, wall locations and gold locations"""
-    board_generator = Board(3)
+    board_generator = BoardLogic(3)
     board_generator.add_wall((1, 1), (2, 1))
     board_generator.add_wall((2, 1), (3, 1))
     board_generator.add_wall((2, 2), (3, 2))
@@ -85,7 +85,7 @@ def game_loop():
 def run_game():
     """Runs the main game loop"""
     clear_terminal()
-    print("Welcome to Tile Traveler\nPress any key to start, (q) to quit at any point")
+    print(f"Welcome to Tile Traveler\nPress any key to start, {QUIT_COMMAND} to quit at any point")
     input(INPUT_FIELD)
     game_loop()
     while True:
