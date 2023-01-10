@@ -1,4 +1,4 @@
-from .board import BoardLogic
+from .board_logic import TileLogic
 from ..models.player import Player
 from ..models.user_moves import UserMove
 from ..models.tile import Tile
@@ -11,17 +11,20 @@ class PlayerLogic:
     def __init__(
             self, start_pos: tuple[int],
             win_pos: tuple[int],
-            default_board: BoardLogic) -> None:
+            tile_logic: TileLogic) -> None:
 
-        self.board = default_board
-        self.tile_dict: dict[tuple[int], Tile] = self.board.tile_dict
+        self.tile_logic = tile_logic
+        self.tile_dict: dict[tuple[int], Tile] = self.tile_logic.tile_dict
         self.win_pos = win_pos
         self.player = Player(start_pos)
 
-    def pull_lever(self) -> None:
+    def pull_lever(self) -> bool:
         """Pulls the lever, increments the gold the player has and removes it from the current tile"""
-        self.player.gold += 1
-        self.current_tile.has_gold = False
+
+        if self.tile_logic.pull_gold_lever(self.current_tile):
+            self.player.gold += 1
+            return True
+        return False
 
     @property
     def current_player_pos(self) -> tuple[int]:

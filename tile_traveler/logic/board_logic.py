@@ -2,13 +2,16 @@ from ..models.tile import Tile
 from ..models.borders import Borders
 
 
-class BoardLogic:
+class TileLogic:
     """Class that handles all board and tile logic.\n
     Takes in map width and height to create the board grid\n
     Can modify and add wall attributes and gold attributes here"""
 
-    def __init__(self, map_width: int, map_height: int = None) -> None:
+    def __init__(self,
+                 map_width: int,
+                 map_height: int = None) -> None:
         self.map_width = map_width
+
         # If map height isnt specified Board will assume the user wants a square and uses width as the height
         if map_height == None:
             self.map_height = map_width
@@ -18,10 +21,20 @@ class BoardLogic:
         self.tile_dict: dict[tuple[int], Tile] = dict()
         self.__create_board()
 
-    def add_gold(self, tile_pos: tuple[int]) -> None:
+    def add_gold(self, tile_pos: tuple[int], amount_of_coins: int = 1) -> None:
         """Adds gold to the specified tile"""
+
         tile_to_set = self.get_tile(tile_pos)
-        tile_to_set.has_gold = True
+        if amount_of_coins < 1:
+            return  # Returns right away if the amount of coins is 0 or less
+        tile_to_set.number_of_gold_coins += amount_of_coins
+
+    def pull_gold_lever(self, tile: Tile) -> bool:
+        """Pull the gold dispense lever. Returns false if the tile is out of gold"""
+        if tile.number_of_gold_coins == 0:
+            return False
+        tile.number_of_gold_coins -= 1
+        return True
 
     def get_tile(self, tile_pos: list[int]) -> Tile:
         """Returns the tile from the provided position"""

@@ -28,6 +28,7 @@ class UiHandler:
         """Clears terminal and prints out the lever prompt string"""
         clear_terminal()
         print(invalid_input_string)
+        print(self.gold_amount_string)
         print(self.lever_prompt_string)
 
     @property

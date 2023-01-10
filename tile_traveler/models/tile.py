@@ -14,8 +14,12 @@ class Tile:
         self.south_border = south_border
         self.west_border = west_border
         self.east_border = east_border
+        self.number_of_gold_coins = 0
 
-        self.has_gold = False
+    @property
+    def has_gold(self) -> bool:
+        """Returns true if the tile has 1 or more gold coins"""
+        return self.number_of_gold_coins > 0
 
     def __str__(self) -> str:
         if self.has_gold:
