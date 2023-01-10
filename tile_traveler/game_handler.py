@@ -1,9 +1,9 @@
-
 from .logic import TileLogic, PlayerLogic
 from .constants import YES_ANS, NO_ANS, QUIT_COMMAND, INPUT_FIELD
 
 from .ui.ui_handler import UiHandler, clear_terminal
 from .models.user_moves import UserMove
+
 INVALID_CHOICE = "Not valid input try again."
 INVALID_DIRECTION = "Not valid direction try again."
 
@@ -48,7 +48,7 @@ def game_loop():
     player = player_logic.player
     while game_status:
         while True:
-            ui_handler.print_game_status(invalid_input_string)
+            ui_handler.print_game_status(invalid_input_string, True)
             user_answer = input(INPUT_FIELD).lower().strip()
             if user_answer == QUIT_COMMAND:
                 return QUIT_COMMAND
@@ -62,7 +62,7 @@ def game_loop():
         player_logic.move_player(user_answer)
         if player_logic.cur_tile_has_gold:
             while True:
-                ui_handler.print_level_prompt_string(invalid_input_string)
+                ui_handler.print_level_prompt_string(invalid_input_string, True)
                 user_answer = input(INPUT_FIELD).strip().lower()
                 if user_answer == QUIT_COMMAND:
                     return QUIT_COMMAND
@@ -86,7 +86,9 @@ def game_loop():
 def run_game():
     """Runs the main game loop"""
     clear_terminal()
-    print(f"Welcome to Tile Traveler\nPress any key to start, {QUIT_COMMAND} to quit at any point")
+    print(
+        f"Welcome to Tile Traveler\nPress any key to start, {QUIT_COMMAND} to quit at any point"
+    )
     input(INPUT_FIELD)
     game_loop()
     while True:

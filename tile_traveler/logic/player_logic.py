@@ -1,4 +1,4 @@
-from .board_logic import TileLogic
+from .tile_logic import TileLogic
 from ..models.player import Player
 from ..models.user_moves import UserMove
 from ..models.tile import Tile
@@ -9,9 +9,8 @@ class PlayerLogic:
     """Logic for the player"""
 
     def __init__(
-            self, start_pos: tuple[int],
-            win_pos: tuple[int],
-            tile_logic: TileLogic) -> None:
+        self, start_pos: tuple[int], win_pos: tuple[int], tile_logic: TileLogic
+    ) -> None:
 
         self.tile_logic = tile_logic
         self.tile_dict: dict[tuple[int], Tile] = self.tile_logic.tile_dict

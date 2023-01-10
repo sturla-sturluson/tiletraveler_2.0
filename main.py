@@ -1,5 +1,3 @@
-
-
 from tile_traveler.game_handler import run_game
 
 
